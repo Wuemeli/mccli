@@ -19,11 +19,7 @@ fn cli() -> Command {
         .arg_required_else_help(true)
         .allow_external_subcommands(true)
         .version(VERSION)
-        .subcommand(
-            Command::new("upgrade")
-                .about("Upgrades the CLI to the latest version")
-                .arg_required_else_help(false),
-        )
+
         .subcommand(
             Command::new("init")
                 .about("Initializes a new Minecraft server")
@@ -345,57 +341,6 @@ fn cli() -> Command {
                                 .value_parser(clap::value_parser!(bool))
                                 .required(false),
                         )
-                        .arg_required_else_help(false),
-                )
-                .arg_required_else_help(true)
-                .subcommand_required(true),
-        )
-        .subcommand(
-            Command::new("backup")
-                .about("Manages backups")
-                .subcommand(
-                    Command::new("create")
-                        .about("Creates a new backup")
-                        .arg(
-                            Arg::new("name")
-                                .help("The name of the backup to create")
-                                .num_args(1)
-                                .required(true),
-                        )
-                        .arg(
-                            Arg::new("format")
-                                .help("The format of the backup to create (options: zip, tar, tar.gz, tar.xz)")
-                                .num_args(1)
-                                .default_value("zip")
-                                .required(false),
-                        )
-                        .arg_required_else_help(true),
-                )
-                .subcommand(
-                    Command::new("delete")
-                        .about("Deletes a backup")
-                        .arg(
-                            Arg::new("name")
-                                .help("The name of the backup to delete")
-                                .num_args(1)
-                                .required(false),
-                        )
-                        .arg_required_else_help(false),
-                )
-                .subcommand(
-                    Command::new("restore")
-                        .about("Restores a backup")
-                        .arg(
-                            Arg::new("name")
-                                .help("The name of the backup to restore")
-                                .num_args(1)
-                                .required(false),
-                        )
-                        .arg_required_else_help(false),
-                )
-                .subcommand(
-                    Command::new("list")
-                        .about("Lists all backups")
                         .arg_required_else_help(false),
                 )
                 .arg_required_else_help(true)
