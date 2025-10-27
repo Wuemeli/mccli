@@ -1,5 +1,4 @@
 mod api;
-mod backups;
 mod commands;
 mod config;
 mod detached;
@@ -472,9 +471,6 @@ async fn main() {
     let matches = cli().get_matches();
 
     match matches.subcommand() {
-        Some(("upgrade", sub_matches)) => {
-            std::process::exit(commands::upgrade::upgrade(sub_matches).await)
-        }
         Some(("init", sub_matches)) => {
             std::process::exit(commands::init::init(sub_matches, None, None).await)
         }
@@ -518,21 +514,6 @@ async fn main() {
             }
             Some(("list", sub_matches)) => {
                 std::process::exit(commands::profile::list::list(sub_matches).await)
-            }
-            _ => unreachable!(),
-        },
-        Some(("backup", sub_matches)) => match sub_matches.subcommand() {
-            Some(("create", sub_matches)) => {
-                std::process::exit(commands::backups::create::create(sub_matches).await)
-            }
-            Some(("delete", sub_matches)) => {
-                std::process::exit(commands::backups::delete::delete(sub_matches).await)
-            }
-            Some(("restore", sub_matches)) => {
-                std::process::exit(commands::backups::restore::restore(sub_matches).await)
-            }
-            Some(("list", sub_matches)) => {
-                std::process::exit(commands::backups::list::list(sub_matches).await)
             }
             _ => unreachable!(),
         },

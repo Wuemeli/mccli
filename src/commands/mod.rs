@@ -1,5 +1,4 @@
 pub mod attach;
-pub mod backups;
 pub mod config;
 pub mod init;
 pub mod install;
@@ -12,5 +11,4 @@ pub mod start;
 pub mod status;
 pub mod stop;
 pub mod update;
-pub mod upgrade;
 pub mod version;
