@@ -1,6 +1,8 @@
-FROM rust:slim as builder
+FROM rust:alpine as builder
 
 WORKDIR /app
+
+RUN apk add --no-cache musl-dev
 
 COPY Cargo.toml Cargo.lock ./
 
@@ -8,11 +10,9 @@ COPY src ./src
 
 RUN cargo build --release
 
-FROM debian:bookworm-slim
+FROM alpine:latest
 
-RUN apt-get update && \
-    apt-get install -y ca-certificates && \
-    rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache ca-certificates
 
 COPY --from=builder /app/target/release/mcvcli /usr/local/bin/mcvcli
 
